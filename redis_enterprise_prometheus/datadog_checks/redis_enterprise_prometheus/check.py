@@ -20,6 +20,14 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
         self.scraper_configs = []
         metrics_endpoint = self.instance.get('openmetrics_endpoint')
         metrics = self.get_default_config()
+        # Explicitly override endpoint_client_connections to be a gauge
+        for metric_group in metrics:
+            if 'endpoint_client_connections' in metric_group:
+                metric_group['endpoint_client_connections'] = {
+                    'name': metric_group['endpoint_client_connections'],
+                    'type': 'gauge',
+                }
+
 
         additional = []
         groups = self.instance.get('extra_metrics', [])
