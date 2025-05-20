@@ -23,10 +23,19 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
         # Explicitly override endpoint_client_connections to be a gauge
         for metric_group in metrics:
             if 'endpoint_client_connections' in metric_group:
-                metric_group['endpoint_client_connections'] = {
-                    'name': metric_group['endpoint_client_connections'],
-                    'type': 'gauge',
-                }
+                val = metric_group['endpoint_client_connections']
+
+                if isinstance(val, str):
+                    # First time: wrap as dict and set type
+                    metric_group['endpoint_client_connections'] = {
+                        'name': val,
+                        'type': 'gauge',
+                    }
+                elif isinstance(val, dict):
+                    # Already wrapped: just override type
+                    val['type'] = 'gauge'
+                else:
+                    raise TypeError(f"Unexpected type for endpoint_client_connections: {type(val)} — {val}")
 
 
         additional = []
