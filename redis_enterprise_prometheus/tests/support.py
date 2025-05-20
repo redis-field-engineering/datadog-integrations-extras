@@ -78,6 +78,7 @@ METRICS_MAP = {
         # 'rdse2.db_status',
         'rdse2.endpoint_client_connection_expired.count',
         'rdse2.endpoint_client_connections.count',
+        'rdse2.endpoint_client_connections.gauge',
         'rdse2.endpoint_client_disconnections.count',
         'rdse2.endpoint_client_establishment_failures.count',
         'rdse2.endpoint_client_tracking_off_requests.count',
