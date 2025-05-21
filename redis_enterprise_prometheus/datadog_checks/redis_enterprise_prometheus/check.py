@@ -2,7 +2,7 @@ from typing import Any  # noqa: F401
 
 from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2
 
-from .metrics import ADDITIONAL_METRICS, DEFAULT_METRICS
+from .metrics import ADDITIONAL_METRICS, COUNTER_METRICS, DEFAULT_METRICS
 
 
 class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
@@ -20,22 +20,24 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
         self.scraper_configs = []
         metrics_endpoint = self.instance.get('openmetrics_endpoint')
         metrics = self.get_default_config()
-        # Explicitly override endpoint_client_connections to be a gauge
+        # Explicitly override all counter metrics to be gauges
         for metric_group in metrics:
-            if 'endpoint_client_connections' in metric_group:
-                val = metric_group['endpoint_client_connections']
+            for metric_name in list(metric_group.keys()):
+                # Check if this metric is in the COUNTER_METRICS list
+                if metric_name in COUNTER_METRICS:
+                    val = metric_group[metric_name]
 
-                if isinstance(val, str):
-                    # First time: wrap as dict and set type
-                    metric_group['endpoint_client_connections'] = {
-                        'name': val,
-                        'type': 'gauge',
-                    }
-                elif isinstance(val, dict):
-                    # Already wrapped: just override type
-                    val['type'] = 'gauge'
-                else:
-                    raise TypeError(f"Unexpected type for endpoint_client_connections: {type(val)} — {val}")
+                    if isinstance(val, str):
+                        # First time: wrap as dict and set type
+                        metric_group[metric_name] = {
+                            'name': val,
+                            'type': 'gauge',
+                        }
+                    elif isinstance(val, dict):
+                        # Already wrapped: just override type
+                        val['type'] = 'gauge'
+                    else:
+                        raise TypeError(f"Unexpected type for {metric_name}: {type(val)} — {val}")
 
 
         additional = []
@@ -46,6 +48,24 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
             additional.append(ADDITIONAL_METRICS[g])
 
         if len(additional) > 0:
+            # Also apply gauge type to any counter metrics in additional metric groups
+            for metric_group in additional:
+                for metric_name in list(metric_group.keys()):
+                    if metric_name in COUNTER_METRICS:
+                        val = metric_group[metric_name]
+                        
+                        if isinstance(val, str):
+                            # First time: wrap as dict and set type
+                            metric_group[metric_name] = {
+                                'name': val,
+                                'type': 'gauge',
+                            }
+                        elif isinstance(val, dict):
+                            # Already wrapped: just override type
+                            val['type'] = 'gauge'
+                        else:
+                            raise TypeError(f"Unexpected type for {metric_name}: {type(val)} — {val}")
+                            
             self.service_check("more_groups", AgentCheck.OK)
             metrics += additional
 
