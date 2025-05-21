@@ -56,6 +56,8 @@ rdse2.endpoint_internal_client_disconnections,gauge,30,connection,,Number of int
 rdse2.endpoint_internal_proxy_disconnections,gauge,30,connection,,Number of internal client disconnections initiated by the proxy,1,redis_enterprise_prometheus,endpoint_internal_proxy_disconnections,
 rdse2.endpoint_other_requests,gauge,30,request,,Number of other requests,1,redis_enterprise_prometheus,endpoint_other_requests,
 rdse2.endpoint_other_requests_latency_histogram,gauge,30,microsecond,,Latency (in us) histogram of other commands,1,redis_enterprise_prometheus,endpoint_other_requests_latency_histogram,
+rdse2.endpoint_other_requests_latency_histogram_count,gauge,30,microsecond,,Latency (in us) histogram of other commands,1,redis_enterprise_prometheus,endpoint_other_requests_latency_histogram_count,
+rdse2.endpoint_other_requests_latency_histogram_sum,gauge,30,microsecond,,Latency (in us) histogram of other commands,1,redis_enterprise_prometheus,endpoint_other_requests_latency_histogram_sum,
 rdse2.endpoint_other_responses,gauge,30,response,,Number of other responses,1,redis_enterprise_prometheus,endpoint_other_responses,
 rdse2.endpoint_proxy_disconnections,gauge,30,connection,,Number of client disconnections initiated by the proxy,1,redis_enterprise_prometheus,endpoint_proxy_disconnections,
 rdse2.endpoint_read_requests,gauge,30,request,,Number of read requests,1,redis_enterprise_prometheus,endpoint_read_requests,
