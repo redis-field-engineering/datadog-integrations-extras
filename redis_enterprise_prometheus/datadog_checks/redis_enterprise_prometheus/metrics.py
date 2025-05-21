@@ -459,6 +459,8 @@ COUNTER_METRICS = [
     'endpoint_proxy_disconnections',
     'endpoint_read_requests',
     'endpoint_read_requests_latency_histogram',
+    'endpoint_read_requests_latency_histogram_count',
+    'endpoint_read_requests_latency_histogram_sum',
     'endpoint_read_responses',
     'endpoint_sconn_application_handshake_failure',
     'endpoint_sconn_establishment_failure',
