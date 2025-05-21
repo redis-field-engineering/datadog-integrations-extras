@@ -3,7 +3,7 @@ from typing import Any  # noqa: F401
 from datadog_checks.base import AgentCheck, ConfigurationError, OpenMetricsBaseCheckV2
 
 from .metrics import ADDITIONAL_METRICS, COUNTER_METRICS, DEFAULT_METRICS
-
+import json
 
 class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
 
@@ -87,6 +87,7 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
         }
 
         config.update(self.instance)
+        self.log.info('Scraper config: %s', json.dumps(config, indent=2))
         self.scraper_configs.append(config)
 
     def get_default_config(self):
