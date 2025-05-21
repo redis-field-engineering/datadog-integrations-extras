@@ -62,6 +62,8 @@ rdse2.endpoint_other_responses,gauge,30,response,,Number of other responses,1,re
 rdse2.endpoint_proxy_disconnections,gauge,30,connection,,Number of client disconnections initiated by the proxy,1,redis_enterprise_prometheus,endpoint_proxy_disconnections,
 rdse2.endpoint_read_requests,gauge,30,request,,Number of read requests,1,redis_enterprise_prometheus,endpoint_read_requests,
 rdse2.endpoint_read_requests_latency_histogram,gauge,30,microsecond,,Latency (in us) histogram of read commands,1,redis_enterprise_prometheus,endpoint_read_requests_latency_histogram,
+rdse2.endpoint_read_requests_latency_histogram_sum,gauge,30,microsecond,,Latency (in us) histogram of read commands,1,redis_enterprise_prometheus,endpoint_read_requests_latency_histogram,
+rdse2.endpoint_read_requests_latency_histogram_count,gauge,30,microsecond,,Latency (in us) histogram of read commands,1,redis_enterprise_prometheus,endpoint_read_requests_latency_histogram,
 rdse2.endpoint_read_responses,gauge,30,response,,Number of read responses,1,redis_enterprise_prometheus,endpoint_read_responses,
 rdse2.endpoint_sconn_application_handshake_failure,gauge,30,connection,,Number of server connections that failed during application handshake,1,redis_enterprise_prometheus,endpoint_sconn_application_handshake_failure,
 rdse2.endpoint_sconn_establishment_failure,gauge,30,fault,,Number of server connections that failed to establish properly,1,redis_enterprise_prometheus,endpoint_sconn_establishment_failure,
