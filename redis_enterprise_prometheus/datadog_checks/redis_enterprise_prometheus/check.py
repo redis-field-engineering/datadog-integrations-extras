@@ -27,7 +27,6 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
             additional.append(ADDITIONAL_METRICS[g])
 
         if len(additional) > 0:
-            self.service_check("more_groups", AgentCheck.OK)
             metrics += additional
 
         excludes = self.instance.get("exclude_metrics", [])
