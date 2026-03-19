@@ -21,6 +21,7 @@ EPHEMERAL = (
         "rdse2.node_available_flash_bytes",  # only present flash
         "rdse2.node_available_flash_no_overbooking_bytes",  # only present flash
         "rdse2.node_bigstore_free_bytes",  # only present bigstore
+        "rdse2.node_cert_expires_in_seconds",  # not present in current fixture payload
         "rdse2.node_provisional_flash_bytes",  # only present flash
         "rdse2.node_provisional_flash_no_overbooking_bytes",  # only present flash
         "rdse2.process_max_fds",
@@ -75,10 +76,10 @@ METRICS_MAP = {
     "REDIS2.DATABASE": [
         "rdse2.database_syncer_config",
         "rdse2.db_memory_limit_bytes",
-        # "rdse2.db_status",
+        "rdse2.db_status",
         "rdse2.endpoint_client_connection_expired.count",
-        "rdse2.endpoint_client_connections.count",
-        "rdse2.endpoint_client_disconnections.count",
+        "rdse2.endpoint_client_connections",
+        "rdse2.endpoint_client_disconnections",
         "rdse2.endpoint_client_establishment_failures.count",
         "rdse2.endpoint_client_tracking_off_requests.count",
         "rdse2.endpoint_client_tracking_on_requests.count",
@@ -98,7 +99,7 @@ METRICS_MAP = {
         "rdse2.endpoint_other_requests_latency_histogram.count",
         "rdse2.endpoint_other_requests_latency_histogram.bucket",
         "rdse2.endpoint_other_responses.count",
-        "rdse2.endpoint_proxy_disconnections.count",
+        "rdse2.endpoint_proxy_disconnections",
         "rdse2.endpoint_read_requests.count",
         "rdse2.endpoint_read_requests_latency_histogram.sum",
         "rdse2.endpoint_read_requests_latency_histogram.count",
@@ -120,6 +121,7 @@ METRICS_MAP = {
         # "rdse2.node_available_flash_no_overbooking_bytes", # MOVED TO FLASH
         "rdse2.node_available_memory_bytes",
         "rdse2.node_available_memory_no_overbooking_bytes",
+        "rdse2.node_cert_expires_in_seconds",
         "rdse2.node_cpu_seconds_total.count",
         # "rdse2.node_bigstore_free_bytes", # MOVED TO FLASH
         "rdse2.x509_cert_expires_in_seconds",
@@ -193,6 +195,7 @@ METRICS_MAP = {
         "rdse2.redis_server_used_memory",
     ],
     "REDIS2.INFO": [
+        "rdse2.node_config",
         "rdse2.node_dmi_info",
         "rdse2.node_os_info",
         "rdse2.node_disk_info",

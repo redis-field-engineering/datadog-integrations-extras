@@ -25,10 +25,10 @@ REDIS_CLUSTER = {
 REDIS_DATABASE = {
     "db_config": "db_config",
     "db_memory_limit_bytes": "db_memory_limit_bytes",
-    # "db_status": "db_status",
+    "db_status": "db_status",
     "endpoint_client_connection_expired": "endpoint_client_connection_expired",
-    "endpoint_client_connections": "endpoint_client_connections",
-    "endpoint_client_disconnections": "endpoint_client_disconnections",
+    "endpoint_client_connections": {"name": "endpoint_client_connections", "type": "gauge"},
+    "endpoint_client_disconnections": {"name": "endpoint_client_disconnections", "type": "gauge"},
     "endpoint_client_establishment_failures": "endpoint_client_establishment_failures",
     "endpoint_client_tracking_off_requests": "endpoint_client_tracking_off_requests",
     "endpoint_client_tracking_on_requests": "endpoint_client_tracking_on_requests",
@@ -46,7 +46,7 @@ REDIS_DATABASE = {
     "endpoint_other_requests": "endpoint_other_requests",
     "endpoint_other_requests_latency_histogram": "endpoint_other_requests_latency_histogram",
     "endpoint_other_responses": "endpoint_other_responses",
-    "endpoint_proxy_disconnections": "endpoint_proxy_disconnections",
+    "endpoint_proxy_disconnections": {"name": "endpoint_proxy_disconnections", "type": "gauge"},
     "endpoint_read_requests": "endpoint_read_requests",
     "endpoint_read_requests_latency_histogram": "endpoint_read_requests_latency_histogram",
     "endpoint_read_responses": "endpoint_read_responses",
@@ -117,6 +117,7 @@ REDIS_NODE = {
     "node_available_flash_no_overbooking_bytes": "node_available_flash_no_overbooking_bytes",
     "node_available_memory_bytes": "node_available_memory_bytes",
     "node_available_memory_no_overbooking_bytes": "node_available_memory_no_overbooking_bytes",
+    "node_cert_expires_in_seconds": "node_cert_expires_in_seconds",
     "node_bigstore_free_bytes": "node_bigstore_free_bytes",
     "node_cpu_seconds": "node_cpu_seconds_total",
     "x509_cert_expires_in_seconds": "x509_cert_expires_in_seconds",
@@ -139,6 +140,7 @@ REDIS_NODE = {
 }
 
 REDIS_INFO = {
+    "node_config": "node_config",
     "node_disk_info": "node_disk_info",
     "node_dmi_info": "node_dmi_info",
     "node_os_info": "node_os_info",

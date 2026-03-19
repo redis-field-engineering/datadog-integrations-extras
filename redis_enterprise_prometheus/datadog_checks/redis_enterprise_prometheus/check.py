@@ -22,9 +22,16 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
         additional = []
         groups = self.instance.get("extra_metrics", [])
         for g in groups:
-            if g not in ADDITIONAL_METRICS.keys():
-                raise ConfigurationError(f"invalid group in extra_metrics: {g}")
-            additional.append(ADDITIONAL_METRICS[g])
+            if g in ADDITIONAL_METRICS:
+                additional.append(ADDITIONAL_METRICS[g])
+                continue
+
+            # Accept raw metric names in `extra_metrics` per the OpenMetrics config contract.
+            if isinstance(g, str):
+                additional.append({g: g})
+                continue
+
+            raise ConfigurationError(f"invalid group in extra_metrics: {g}")
 
         if len(additional) > 0:
             self.service_check("more_groups", AgentCheck.OK)

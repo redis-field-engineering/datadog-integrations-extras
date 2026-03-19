@@ -32,11 +32,30 @@ The Redis Enterprise Prometheus integration provides support for the [V2 Redis E
 
 Point the `openmetrics_endpoint` to your cluster and ensure `tls_verify` remains false (by default). Reference the [example config file][4] for guidance.
 
+For dashboard compatibility, especially latency percentile panels and node-level filesystem or process panels, enable histogram distribution conversion and the relevant optional metric groups:
+
+```yaml
+instances:
+  - openmetrics_endpoint: https://<cluster>:8070/v2
+    tls_verify: false
+    histogram_buckets_as_distributions: true
+    collect_counters_with_distributions: true
+    extra_metrics:
+      - REDIS2.FILESYSTEM
+      - REDIS2.PROCESS
+      - REDIS2.MEMORY
+      - REDIS2.NETWORK
+      - REDIS2.X509
+      - REDIS2.DISK
+```
+
 Two optional parameters are available, as shown in the example configuration file:
 
 **`extra_metrics`** - Accepts a list of metric groups:
 - Available groups: REDIS2.REPLICATION, REDIS2.SHARDREPL, REDIS2.LDAP, REDIS2.NETWORK, REDIS2.MEMORY, REDIS2.X509, REDIS2.DISK, REDIS2.FILESYSTEM, REDIS2.PROCESS, REDIS2.PRESSURE, REDIS2.FLASH, REDIS2.SEARCH
 - Default groups (automatically included): RDSE2.REDIS_CLUSTER, RDSE2.REDIS_DATABASE, RDSE2.REDIS_SHARD, RDSE2.REDIS_INFO, RDSE2.REDIS_NODE
+
+**Histogram percentile support** - Set `histogram_buckets_as_distributions: true` and `collect_counters_with_distributions: true` if you want Datadog percentile queries such as `p95:` and `p99:` for Redis Enterprise latency histograms while retaining `.sum` and `.count` series for average latency formulas.
 
 **`excluded_metrics`** - Accepts a list of individual metrics to exclude from Datadog:
 - Remove the prefix when specifying metrics (for example, use `generation` instead of `rdse2.generation`).

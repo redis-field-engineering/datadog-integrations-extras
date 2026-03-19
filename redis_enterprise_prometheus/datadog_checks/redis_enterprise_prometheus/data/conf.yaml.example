@@ -17,6 +17,16 @@ instances:
     ## The URL exposing metrics in the OpenMetrics format.
     #
   - openmetrics_endpoint: <OPENMETRICS_ENDPOINT>
+    tls_verify: false
+    histogram_buckets_as_distributions: true
+    collect_counters_with_distributions: true
+    extra_metrics:
+      - REDIS2.FILESYSTEM
+      - REDIS2.PROCESS
+      - REDIS2.MEMORY
+      - REDIS2.NETWORK
+      - REDIS2.X509
+      - REDIS2.DISK
 
     ## @param raw_metric_prefix - string - optional
     ## A prefix that is removed from all exposed metric names, if present.
