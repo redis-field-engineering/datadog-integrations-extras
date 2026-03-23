@@ -17,7 +17,16 @@ class RedisEnterprisePrometheusCheck(OpenMetricsBaseCheckV2):
     def _parse_config(self):
         self.scraper_configs = []
         metrics_endpoint = self.instance.get("openmetrics_endpoint")
-        metrics = self.get_default_config()
+        explicit_metrics = self.instance.get("metrics")
+        if explicit_metrics:
+            metrics = []
+            for metric in explicit_metrics:
+                if isinstance(metric, str):
+                    metrics.append({metric: metric})
+                else:
+                    metrics.append(metric)
+        else:
+            metrics = self.get_default_config()
 
         additional = []
         groups = self.instance.get("extra_metrics", [])

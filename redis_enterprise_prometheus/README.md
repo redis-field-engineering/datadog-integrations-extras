@@ -54,6 +54,7 @@ Two optional parameters are available, as shown in the example configuration fil
 **`extra_metrics`** - Accepts a list of metric groups:
 - Available groups: REDIS2.REPLICATION, REDIS2.SHARDREPL, REDIS2.LDAP, REDIS2.NETWORK, REDIS2.MEMORY, REDIS2.X509, REDIS2.DISK, REDIS2.FILESYSTEM, REDIS2.PROCESS, REDIS2.PRESSURE, REDIS2.FLASH, REDIS2.SEARCH
 - Default groups (automatically included): RDSE2.REDIS_CLUSTER, RDSE2.REDIS_DATABASE, RDSE2.REDIS_SHARD, RDSE2.REDIS_INFO, RDSE2.REDIS_NODE
+- `REDIS2.SEARCH` gates RediSearch field, cursor, and GC metrics used by the RediSearch QPS dashboard. These metrics also depend on live RediSearch indexes and workload on the target database; if the module, schema, or traffic is absent, Datadog will correctly show no series even when the group is enabled.
 
 **Histogram percentile support** - Set `histogram_buckets_as_distributions: true` and `collect_counters_with_distributions: true` if you want Datadog percentile queries such as `p95:` and `p99:` for Redis Enterprise latency histograms while retaining `.sum` and `.count` series for average latency formulas.
 
